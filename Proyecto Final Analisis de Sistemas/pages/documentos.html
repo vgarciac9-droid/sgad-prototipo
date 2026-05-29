@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentos - SGAD</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+        <h2>🎓 SGAD</h2>
+        <ul>
+            <li><a href="dashboard.html">🏠 Inicio</a></li>
+            <li><a href="estudiantes.html">👨‍🎓 Estudiantes</a></li>
+            <li>
+    <a href="expedientes-lista.html">📁 Expedientes</a>
+</li>
+            <li><a href="documentos.html">📄 Documentos</a></li>
+            <li><a href="reportes.html">📊 Reportes</a></li>
+            <li><a href="configuracion.html">⚙️ Configuración</a></li>
+            <li><a href="../index.html">🚪 Cerrar sesión</a></li>
+        </ul>
+    </aside>
+
+    <main class="contenido-dashboard">
+
+        <div class="barra-superior">
+            <div>
+                <h2>Gestión de Documentos</h2>
+                <p>Carga y consulta de archivos académicos y administrativos</p>
+            </div>
+
+            <div class="usuario-box">👩‍💼 Administrador</div>
+        </div>
+
+        <div class="formulario-card">
+
+            <div class="grupo-formulario">
+                <label>Estudiante</label>
+                <select>
+                    <option>Seleccione estudiante</option>
+                    <option>María López</option>
+                    <option>Juan Pérez</option>
+                    <option>Sofía Hernández</option>
+                    <option>Diego Ramírez</option>
+                </select>
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Tipo de documento</label>
+                <select>
+                    <option>Acta de nacimiento</option>
+                    <option>Certificado académico</option>
+                    <option>DPI del encargado</option>
+                    <option>Ficha de inscripción</option>
+                </select>
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Fecha de carga</label>
+                <input type="date">
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Archivo</label>
+                <input type="file">
+            </div>
+
+            <div class="botones-formulario">
+                <button class="btn-guardar" onclick="alert('Documento subido correctamente')">
+                    Subir documento
+                </button>
+            </div>
+
+        </div>
+
+        <br>
+
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Estudiante</th>
+                        <th>Documento</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>D001</td>
+                        <td>María López</td>
+                        <td>Acta de nacimiento</td>
+                        <td>20/05/2026</td>
+                        <td><span class="activo">Cargado</span></td>
+                        <td>👁️ ⬇️ 🗑️</td>
+                    </tr>
+
+                    <tr>
+                        <td>D002</td>
+                        <td>Juan Pérez</td>
+                        <td>Certificado académico</td>
+                        <td>22/05/2026</td>
+                        <td><span class="activo">Cargado</span></td>
+                        <td>👁️ ⬇️ 🗑️</td>
+                    </tr>
+
+                    <tr>
+                        <td>D003</td>
+                        <td>Sofía Hernández</td>
+                        <td>DPI del encargado</td>
+                        <td>Pendiente</td>
+                        <td><span class="pendiente">Pendiente</span></td>
+                        <td>👁️ ⬇️ 🗑️</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
