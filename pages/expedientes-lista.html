@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Expedientes - SGAD</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+        <h2>🎓 SGAD</h2>
+
+        <ul>
+            <li><a href="dashboard.html">🏠 Inicio</a></li>
+            <li><a href="estudiantes.html">👨‍🎓 Estudiantes</a></li>
+            <li><a href="expedientes-lista.html">📁 Expedientes</a></li>
+            <li><a href="documentos.html">📄 Documentos</a></li>
+            <li><a href="reportes.html">📊 Reportes</a></li>
+            <li><a href="configuracion.html">⚙️ Configuración</a></li>
+            <li><a href="../index.html">🚪 Cerrar sesión</a></li>
+        </ul>
+    </aside>
+
+    <main class="contenido-dashboard">
+
+        <div class="barra-superior">
+            <div>
+                <h2>Gestión de Expedientes</h2>
+                <p>Listado general de expedientes estudiantiles</p>
+            </div>
+
+            <div class="usuario-box">👩‍💼 Administrador</div>
+        </div>
+
+        <div class="acciones-tabla">
+            <input type="text" placeholder="Buscar expediente por estudiante...">
+        </div>
+
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Estudiante</th>
+                        <th>Grado</th>
+                        <th>Documentos</th>
+                        <th>Estado del expediente</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>EXP-001</td>
+                        <td>María López</td>
+                        <td>3° Primaria</td>
+                        <td>4 documentos</td>
+                        <td><span class="activo">Completo</span></td>
+                        <td>
+                            <a href="expedientes.html" class="link-accion">👁️ Ver expediente</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>EXP-002</td>
+                        <td>Juan Pérez</td>
+                        <td>4° Primaria</td>
+                        <td>3 documentos</td>
+                        <td><span class="pendiente">Pendiente</span></td>
+                        <td>
+                            <a href="expedientes.html" class="link-accion">👁️ Ver expediente</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>EXP-003</td>
+                        <td>Sofía Hernández</td>
+                        <td>5° Primaria</td>
+                        <td>2 documentos</td>
+                        <td><span class="pendiente">Incompleto</span></td>
+                        <td>
+                            <a href="expedientes.html" class="link-accion">👁️ Ver expediente</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>EXP-004</td>
+                        <td>Diego Ramírez</td>
+                        <td>6° Primaria</td>
+                        <td>4 documentos</td>
+                        <td><span class="activo">Completo</span></td>
+                        <td>
+                            <a href="expedientes.html" class="link-accion">👁️ Ver expediente</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Estudiante - SGAD</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+        <h2>🎓 SGAD</h2>
+
+        <ul>
+            <li><a href="dashboard.html">🏠 Inicio</a></li>
+            <li><a href="estudiantes.html">👨‍🎓 Estudiantes</a></li>
+            <li>
+    <a href="expedientes-lista.html">📁 Expedientes</a>
+</li>
+            <li><a href="documentos.html">📄 Documentos</a></li>
+            <li><a href="reportes.html">📊 Reportes</a></li>
+            <li><a href="configuracion.html">⚙️ Configuración</a></li>
+            <li><a href="../index.html">🚪 Cerrar sesión</a></li>
+        </ul>
+    </aside>
+
+    <main class="contenido-dashboard">
+
+        <div class="barra-superior">
+            <div>
+                <h2>Registro de Estudiante</h2>
+                <p>Formulario de inscripción estudiantil</p>
+            </div>
+
+            <div class="usuario-box">👩‍💼 Administrador</div>
+        </div>
+
+        <div class="formulario-card">
+
+            <div class="grupo-formulario">
+                <label>Nombres</label>
+                <input id="nombres" type="text" placeholder="Ingrese nombres">
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Apellidos</label>
+                <input id="apellidos" type="text" placeholder="Ingrese apellidos">
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Fecha de nacimiento</label>
+                <input id="fechaNacimiento" type="date">
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Grado</label>
+                <select id="grado">
+                    <option>Seleccione</option>
+                    <option>1° Primaria</option>
+                    <option>2° Primaria</option>
+                    <option>3° Primaria</option>
+                    <option>4° Primaria</option>
+                    <option>5° Primaria</option>
+                    <option>6° Primaria</option>
+                </select>
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Nombre del encargado</label>
+                <input id="encargado" type="text" placeholder="Ingrese encargado">
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Teléfono</label>
+                <input id="telefono" type="text" placeholder="Ingrese teléfono">
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Dirección</label>
+                <input id="direccion" type="text" placeholder="Ingrese dirección">
+            </div>
+
+            <div class="grupo-formulario">
+                <label>Estado</label>
+                <select id="estado">
+                    <option>Activo</option>
+                    <option>Pendiente</option>
+                </select>
+            </div>
+
+            <div class="botones-formulario">
+                <a href="estudiantes.html" class="btn-cancelar">Cancelar</a>
+                <button class="btn-guardar" onclick="guardarEstudiante()">Guardar estudiante</button>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="../script.js"></script>
+</body>
+</html>
