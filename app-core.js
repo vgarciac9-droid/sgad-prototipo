@@ -240,20 +240,163 @@
     });
   };
 
+
+  // ==========================================
+  // SGAD - INICIO DE SESIÓN INSTITUCIONAL
+  // ==========================================
+
   App.renderLogin = function () {
-    document.getElementById("app").innerHTML = '<main class="login-page">' +
-      '<section class="login-brand"><div class="brand-content">' +
-      '<div class="brand-lockup"><div class="brand-logo-wrap"><img src="assets/logo-escuela.png" alt="Logotipo de la EORM Orfelinda Osorio Lemus"></div><div><div class="brand-name">SGAD</div><div class="brand-subtitle">EORM Orfelinda Osorio Lemus</div></div></div>' +
-      '<h1>La información escolar, organizada y protegida.</h1><p>Administre expedientes, documentos y entregas docentes desde un espacio institucional claro y confiable.</p>' +
-      '<div class="brand-points"><span class="brand-point">Expedientes centralizados</span><span class="brand-point">Trazabilidad de acciones</span><span class="brand-point">Archivos persistentes</span></div>' +
-      '</div></section><section class="login-panel"><div class="login-card"><p class="eyebrow">Acceso institucional</p><h2>Bienvenida al sistema</h2><p>Ingrese con la cuenta asignada por Dirección.</p>' +
-      '<form id="login-form"><div class="form-group"><label class="required" for="login-email">Correo institucional</label><input class="input" id="login-email" name="email" type="email" autocomplete="username" required></div>' +
-      '<div class="form-group"><label class="required" for="login-password">Contraseña</label><div class="input-icon"><input class="input" id="login-password" name="password" type="password" autocomplete="current-password" required><button type="button" data-action="toggle-password" aria-label="Mostrar contraseña">◉</button></div></div>' +
-      '<button class="btn btn-primary btn-block" type="submit">Ingresar al SGAD</button></form>' +
-      '<div class="login-help"><strong>Accesos de demostración</strong><div class="demo-buttons"><button class="btn btn-soft btn-sm" data-action="demo-fill" data-role="directora">Usar Directora</button><button class="btn btn-soft btn-sm" data-action="demo-fill" data-role="docente">Usar Docente</button></div><p class="input-hint mb-0">Los datos son ficticios y se guardan únicamente en este navegador.</p></div>' +
-      "</div></section></main>";
-    document.getElementById("login-form").addEventListener("submit", App.handleLogin);
+
+    document.getElementById("app").innerHTML = `
+      <main class="login-page sgad-login">
+
+        <!-- PANEL IZQUIERDO: INSTITUCIÓN -->
+        <section class="login-brand">
+          <div class="brand-content">
+
+            <div class="institution-identity">
+
+              <div class="brand-logo-wrap">
+                <img
+                  src="assets/logo-escuela.png"
+                  alt="Escudo de la Escuela Oficial Rural Mixta Orfelinda Osorio Lemus"
+                >
+              </div>
+
+              <div class="institution-info">
+                <p class="institution-eyebrow">
+                  ESCUELA OFICIAL RURAL MIXTA
+                </p>
+
+                <h1>
+                  Orfelinda<br>
+                  Osorio Lemus
+                </h1>
+
+                <p class="institution-subtitle">
+                  Jornada Matutina · Sistema institucional
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- PANEL DERECHO: ACCESO -->
+        <section class="login-panel">
+
+          <div class="login-card">
+
+            <div class="login-system-tag">
+              SGAD
+            </div>
+
+            <h2>Acceso al sistema</h2>
+
+            <p class="login-description">
+              Ingrese con la cuenta asignada por Dirección.
+            </p>
+
+            <form id="login-form">
+
+              <div class="form-group">
+                <label class="required" for="login-email">
+                  Correo institucional
+                </label>
+
+                <input
+                  class="input"
+                  id="login-email"
+                  name="email"
+                  type="email"
+                  autocomplete="username"
+                  required
+                >
+              </div>
+
+              <div class="form-group">
+
+                <label class="required" for="login-password">
+                  Contraseña
+                </label>
+
+                <div class="input-icon">
+                  <input
+                    class="input"
+                    id="login-password"
+                    name="password"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                  >
+
+                  <button
+                    type="button"
+                    data-action="toggle-password"
+                    aria-label="Mostrar contraseña"
+                  >
+                    Ver
+                  </button>
+                </div>
+
+              </div>
+
+              <button
+                class="btn btn-primary btn-block login-submit"
+                type="submit"
+              >
+                Ingresar al sistema
+              </button>
+
+            </form>
+
+            <!-- ACCESOS DEL PROTOTIPO -->
+            <div class="login-help">
+
+              <strong>Accesos de demostración</strong>
+
+              <div class="demo-buttons">
+
+                <button
+                  class="btn btn-soft btn-sm"
+                  type="button"
+                  data-action="demo-fill"
+                  data-role="directora"
+                >
+                  Usar cuenta de directora
+                </button>
+
+                <button
+                  class="btn btn-soft btn-sm"
+                  type="button"
+                  data-action="demo-fill"
+                  data-role="docente"
+                >
+                  Usar cuenta de docente
+                </button>
+
+              </div>
+
+              <p class="input-hint mb-0">
+                Entorno de prueba con datos demostrativos.
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </main>
+    `;
+
+    document
+      .getElementById("login-form")
+      .addEventListener("submit", App.handleLogin);
+
   };
+
 
   App.handleLogin = function (event) {
     event.preventDefault();

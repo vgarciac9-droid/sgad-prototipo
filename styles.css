@@ -521,3 +521,370 @@ tbody tr:hover { background: #fbfdfe; }
     break-inside: avoid;
   }
 }
+
+
+/* ==========================================
+   SGAD - NUEVO INICIO DE SESIÓN INSTITUCIONAL
+   Diseño sobrio con fondo azul
+   ========================================== */
+
+.sgad-login {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 54% 46%;
+  background: #f5f8fc;
+}
+
+/* PANEL IZQUIERDO */
+
+.sgad-login .login-brand {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 55px 48px;
+
+  background: linear-gradient(
+    140deg,
+    #082b49 0%,
+    #103e63 55%,
+    #075b7e 100%
+  );
+
+  color: #ffffff;
+}
+
+/* Círculos decorativos discretos */
+
+.sgad-login .login-brand::before,
+.sgad-login .login-brand::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sgad-login .login-brand::before {
+  width: 490px;
+  height: 490px;
+  top: -270px;
+  left: -180px;
+}
+
+.sgad-login .login-brand::after {
+  width: 430px;
+  height: 430px;
+  right: -230px;
+  bottom: -220px;
+}
+
+.sgad-login .brand-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 790px;
+}
+
+/* Logo y nombre de la institución */
+
+.sgad-login .institution-identity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.sgad-login .brand-logo-wrap {
+  flex: 0 0 auto;
+  width: clamp(150px, 17vw, 260px);
+  height: clamp(150px, 17vw, 260px);
+  padding: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+  border-radius: 50%;
+
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.20);
+}
+
+.sgad-login .brand-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sgad-login .institution-info {
+  min-width: 0;
+}
+
+.sgad-login .institution-eyebrow {
+  margin: 0 0 15px;
+  color: #85ddfb;
+  font-size: 0.76rem;
+  letter-spacing: 0.13em;
+  font-weight: 800;
+}
+
+.sgad-login .institution-info h1 {
+  margin: 0;
+  max-width: 530px;
+  color: #ffffff;
+  font-family: "Nunito", Arial, sans-serif;
+
+  font-size: clamp(2.6rem, 4.25vw, 4.8rem);
+  line-height: 1.09;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+}
+
+.sgad-login .institution-subtitle {
+  margin-top: 20px;
+  color: #c7e5f5;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* PANEL DERECHO */
+
+.sgad-login .login-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 45px 7%;
+
+  background: linear-gradient(
+    145deg,
+    #f9fcff,
+    #edf4fa
+  );
+}
+
+/* TARJETA DE INGRESO */
+
+.sgad-login .login-card {
+  width: 100%;
+  max-width: 485px;
+  padding: 38px 36px;
+
+  background: #ffffff;
+  border: 1px solid #dce7f1;
+  border-radius: 26px;
+
+  box-shadow: 0 22px 55px rgba(10, 45, 79, 0.10);
+}
+
+/* Etiqueta SGAD */
+
+.sgad-login .login-system-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 45px;
+  padding: 9px 18px;
+  margin-bottom: 28px;
+
+  color: #ffffff;
+  background: #153f6b;
+  border-radius: 13px;
+
+  font-family: "Nunito", Arial, sans-serif;
+  font-size: 1.12rem;
+  font-weight: 900;
+  letter-spacing: 0.025em;
+}
+
+.sgad-login .login-card h2 {
+  margin: 0 0 10px;
+  color: #102f50;
+
+  font-family: "Nunito", Arial, sans-serif;
+  font-size: clamp(1.8rem, 2.5vw, 2.3rem);
+  line-height: 1.17;
+  font-weight: 900;
+}
+
+.sgad-login .login-description {
+  margin: 0 0 30px;
+  color: #667f98;
+  font-size: 0.96rem;
+}
+
+/* FORMULARIO */
+
+.sgad-login .login-card .form-group {
+  margin-bottom: 20px;
+}
+
+.sgad-login .login-card .input {
+  min-height: 52px;
+  border-radius: 12px;
+  border: 1px solid #d0dfed;
+  background: #ffffff;
+}
+
+.sgad-login .login-card .input:focus {
+  border-color: #1689bb;
+  box-shadow: 0 0 0 4px rgba(22, 137, 187, 0.11);
+}
+
+/* Botón principal */
+
+.sgad-login .login-submit {
+  min-height: 52px;
+  width: 100%;
+  margin-top: 8px;
+
+  background: #12466f;
+  border-color: #12466f;
+  border-radius: 12px;
+
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 10px 22px rgba(18, 70, 111, 0.14);
+}
+
+.sgad-login .login-submit:hover {
+  background: #0b3659;
+  border-color: #0b3659;
+}
+
+/* ACCESOS DE DEMOSTRACIÓN */
+
+.sgad-login .login-help {
+  margin-top: 28px;
+  padding: 22px 0 0;
+
+  border: none;
+  border-top: 1px solid #e1e9f0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.sgad-login .login-help strong {
+  display: block;
+  color: #58708a;
+  font-size: 0.87rem;
+  margin-bottom: 12px;
+}
+
+.sgad-login .demo-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.sgad-login .demo-buttons .btn {
+  min-height: 42px;
+  white-space: normal;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 0.82rem;
+}
+
+.sgad-login .login-help .input-hint {
+  margin-top: 13px;
+  color: #7a8fa2;
+  font-size: 0.78rem;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+
+  .sgad-login {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sgad-login .institution-identity {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sgad-login .login-card {
+    padding: 30px 25px;
+  }
+
+}
+
+@media (max-width: 900px) {
+
+  .sgad-login {
+    grid-template-columns: 1fr;
+  }
+
+  .sgad-login .login-brand {
+    min-height: 310px;
+    padding: 35px 24px;
+  }
+
+  .sgad-login .institution-identity {
+    flex-direction: row;
+    text-align: left;
+    gap: 22px;
+  }
+
+  .sgad-login .brand-logo-wrap {
+    width: 125px;
+    height: 125px;
+  }
+
+  .sgad-login .institution-info h1 {
+    font-size: 2.4rem;
+  }
+
+  .sgad-login .login-panel {
+    min-height: auto;
+    padding: 36px 20px;
+  }
+
+}
+
+@media (max-width: 560px) {
+
+  .sgad-login .login-brand {
+    min-height: 270px;
+  }
+
+  .sgad-login .institution-identity {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .sgad-login .brand-logo-wrap {
+    width: 105px;
+    height: 105px;
+  }
+
+  .sgad-login .institution-info h1 {
+    font-size: 2rem;
+  }
+
+  .sgad-login .institution-eyebrow {
+    font-size: 0.65rem;
+  }
+
+  .sgad-login .institution-subtitle {
+    margin-top: 10px;
+    font-size: 0.87rem;
+  }
+
+  .sgad-login .login-card {
+    padding: 26px 20px;
+    border-radius: 20px;
+  }
+
+  .sgad-login .demo-buttons {
+    grid-template-columns: 1fr;
+  }
+
+}
