@@ -888,3 +888,119 @@ tbody tr:hover { background: #fbfdfe; }
   }
 
 }
+
+/* ==========================================
+   SGAD - SCROLLBAR DEL MENÚ LATERAL
+   ========================================== */
+
+/* Menú lateral desplazable */
+.sidebar .nav-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(145, 202, 231, 0.38) transparent;
+}
+
+/* Chrome, Edge y navegadores WebKit */
+.sidebar .nav-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar .nav-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar .nav-scroll::-webkit-scrollbar-thumb {
+  background: rgba(145, 202, 231, 0.38);
+  border-radius: 20px;
+}
+
+.sidebar .nav-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(145, 202, 231, 0.65);
+}
+
+.sidebar .nav-scroll::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Evitar cambios de tamaño en el menú */
+.sidebar {
+  overflow: hidden;
+}
+
+/* ==========================================
+   SGAD - BUSCADOR DE ESTUDIANTES AL SUBIR
+   DOCUMENTOS DE EXPEDIENTES
+   ========================================== */
+
+.upload-student-results {
+  max-height: 220px;
+  overflow-y: auto;
+  margin-top: 8px;
+  border: 1px solid #d9e6ee;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.upload-student-results:empty {
+  display: none;
+}
+
+.upload-student-results > .muted {
+  margin: 0;
+  padding: 13px 15px;
+  font-size: 0.88rem;
+}
+
+.upload-student-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  padding: 12px 15px;
+  background: #ffffff;
+  color: #153a59;
+  border: none;
+  border-bottom: 1px solid #e8eff5;
+  text-align: left;
+  cursor: pointer;
+}
+
+.upload-student-option:last-child {
+  border-bottom: none;
+}
+
+.upload-student-option:hover,
+.upload-student-option:focus-visible {
+  background: #eaf7fc;
+  outline-offset: -3px;
+}
+
+.upload-student-option strong {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.upload-student-option small {
+  color: #668399;
+  font-size: 0.8rem;
+}
+
+.upload-student-confirmed {
+  margin: 10px 0 0;
+  padding: 11px 14px;
+  border: 1px solid #b5e5d6;
+  background: #eaf8f2;
+  color: #146a55;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.upload-student-results {
+  scrollbar-width: thin;
+  scrollbar-color: #aacbdc transparent;
+}

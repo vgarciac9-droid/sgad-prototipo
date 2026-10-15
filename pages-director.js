@@ -204,37 +204,235 @@
     document.getElementById("upload-type").addEventListener("change", function (event) { renderUploadFields(event.target.value); });
   };
 
+  
   function renderUploadFields(type) {
     var target = document.getElementById("upload-dynamic-fields");
     if (!target) return;
+
     if (type === "institutional") {
       target.innerHTML = '<div class="form-group"><label class="required" for="doc-title">Título del documento</label><input class="input" id="doc-title" name="title" required maxlength="120" placeholder="Ej. Acta de reunión de padres de familia"></div><div class="field-row"><div class="form-group"><label class="required" for="doc-category">Categoría</label><select class="input" id="doc-category" name="categoryId" required>' + App.formOptions(App.state.documentCategories.filter(function (x) { return x.active; }), "id", "name") + '</select></div><div class="form-group"><label class="required" for="doc-access">Nivel de acceso</label><select class="input" id="doc-access" name="access" required><option>Solo Dirección</option><option>Dirección y docentes</option></select></div></div><div class="field-row"><div class="form-group"><label class="required" for="doc-date">Fecha documental</label><input class="input" id="doc-date" name="documentDate" type="date" value="' + App.todayIso() + '" required></div><div class="form-group"><label class="required" for="doc-file">Archivo digital</label><input class="input" id="doc-file" name="file" type="file" accept=".pdf,.docx,.xlsx,.jpg,.jpeg,.png" required></div></div><div class="form-group"><label for="doc-description">Descripción u observaciones</label><textarea class="input" id="doc-description" name="description" placeholder="Describa brevemente el contenido..."></textarea><p class="input-hint">PDF, DOCX, XLSX, JPG, JPEG o PNG · máximo 10 MB.</p></div>';
-    } else {
-      var cycleId = App.state.settings.selectedCycleId;
-      var students = App.state.enrollments.filter(function (x) { return x.cycleId === cycleId && x.status !== "Retirada"; }).map(function (x) { return App.studentById(x.studentId); }).filter(Boolean).sort(function (a,b) { return (a.lastNames + a.firstNames).localeCompare(b.lastNames + b.firstNames); });
-      target.innerHTML = '<div class="field-row"><div class="form-group"><label class="required" for="upload-student">Estudiante</label><select class="input" id="upload-student" name="studentId" required><option value="">Seleccione...</option>' + App.formOptions(students, "id", function (s) { return s.firstNames + " " + s.lastNames + " · " + s.code; }) + '</select></div><div class="form-group"><label class="required" for="upload-requirement">Documento del expediente</label><select class="input" id="upload-requirement" name="requirementId" required><option value="">Seleccione primero un estudiante</option></select></div></div><div id="student-file-warning"></div><div class="field-row"><div class="form-group"><label class="required" for="student-doc-file">Archivo digital</label><input class="input" id="student-doc-file" name="file" type="file" accept=".pdf,.docx,.xlsx,.jpg,.jpeg,.png" required></div><div class="form-group"><label for="student-doc-notes">Observaciones</label><textarea class="input" id="student-doc-notes" name="description"></textarea></div></div><p class="input-hint">Los requisitos entregados pueden actualizarse creando una versión nueva.</p>';
-      document.getElementById("upload-student").addEventListener("change", updateRequirementSelect);
+      return;
     }
+
+    var cycleId = App.state.settings.selectedCycleId;
+    var sections = App.state.sections.filter(function (section) {
+      return section.cycleId === cycleId && section.active;
+    }).sort(function (a, b) {
+      return a.grade - b.grade || a.label.localeCompare(b.label);
+    });
+
+    target.innerHTML =
+      '<div class="form-group">' +
+        '<label class="required" for="upload-section">1. Grado y sección</label>' +
+        '<select class="input" id="upload-section" required>' +
+          '<option value="">Seleccione grado y sección...</option>' +
+          App.formOptions(sections, "id", "label") +
+        '</select>' +
+      '</div>' +
+      '<div class="form-group">' +
+        '<label class="required" for="upload-student-search">2. Buscar estudiante</label>' +
+        '<input class="input" id="upload-student-search" type="search" ' +
+          'placeholder="Escriba nombre, apellido o código..." autocomplete="off" disabled>' +
+        '<input type="hidden" id="upload-student" name="studentId">' +
+        '<div id="upload-student-results" class="upload-student-results" aria-live="polite">' +
+          '<p class="muted">Seleccione primero un grado y sección.</p>' +
+        '</div>' +
+        '<div id="upload-student-selected"></div>' +
+      '</div>' +
+      '<div class="form-group">' +
+        '<label class="required" for="upload-requirement">3. Documento del expediente</label>' +
+        '<select class="input" id="upload-requirement" name="requirementId" required disabled>' +
+          '<option value="">Seleccione primero un estudiante</option>' +
+        '</select>' +
+      '</div>' +
+      '<div id="student-file-warning"></div>' +
+      '<div class="field-row">' +
+        '<div class="form-group"><label class="required" for="student-doc-file">4. Archivo digital</label>' +
+          '<input class="input" id="student-doc-file" name="file" type="file" ' +
+          'accept=".pdf,.docx,.xlsx,.jpg,.jpeg,.png" required></div>' +
+        '<div class="form-group"><label for="student-doc-notes">Observaciones</label>' +
+          '<textarea class="input" id="student-doc-notes" name="description"></textarea></div>' +
+      '</div>' +
+      '<p class="input-hint">Los documentos ya entregados se actualizan como una nueva versión.</p>';
+
+    var sectionSelect = document.getElementById("upload-section");
+    var searchInput = document.getElementById("upload-student-search");
+    var selectedInput = document.getElementById("upload-student");
+    var results = document.getElementById("upload-student-results");
+    var selectedLabel = document.getElementById("upload-student-selected");
+
+    function clearStudent() {
+      selectedInput.value = "";
+      selectedLabel.innerHTML = "";
+      updateRequirementSelect();
+    }
+
+    function matchingStudents() {
+      var sectionId = sectionSelect.value;
+      if (!sectionId) return [];
+      var term = App.normalizeSearch(searchInput.value.trim());
+
+      return App.state.enrollments
+        .filter(function (enrollment) {
+          return enrollment.cycleId === cycleId &&
+            enrollment.sectionId === sectionId &&
+            enrollment.status !== "Retirada";
+        })
+        .map(function (enrollment) {
+          return App.studentById(enrollment.studentId);
+        })
+        .filter(function (student) {
+          if (!student) return false;
+
+          var name = student.firstNames + " " + student.lastNames;
+          var searchable = App.normalizeSearch(
+            name + " " + student.code + " " +
+            student.lastNames + " " + student.firstNames
+          );
+
+          return !term || searchable.indexOf(term) !== -1;
+        })
+        .sort(function (a, b) {
+          return (a.firstNames + " " + a.lastNames)
+            .localeCompare(b.firstNames + " " + b.lastNames);
+        });
+    }
+
+    function renderMatches() {
+      if (!sectionSelect.value) {
+        results.innerHTML = '<p class="muted">Seleccione primero un grado y sección.</p>';
+        return;
+      }
+
+      var students = matchingStudents();
+
+      results.innerHTML = students.length
+        ? students.map(function (student) {
+            return '<button type="button" class="upload-student-option" data-student-id="' +
+              App.escape(student.id) + '"><strong>' +
+              App.escape(student.firstNames + " " + student.lastNames) +
+              '</strong><small>' + App.escape(student.code) +
+              '</small></button>';
+          }).join("")
+        : '<p class="muted">No se encontraron estudiantes en esta sección.</p>';
+    }
+
+    sectionSelect.addEventListener("change", function () {
+      searchInput.disabled = !sectionSelect.value;
+      searchInput.value = "";
+      clearStudent();
+      renderMatches();
+
+      if (sectionSelect.value) searchInput.focus();
+    });
+
+    searchInput.addEventListener("input", function () {
+      clearStudent();
+      renderMatches();
+    });
+
+    results.addEventListener("click", function (event) {
+      var button = event.target.closest("button[data-student-id]");
+      if (!button) return;
+
+      var student = App.studentById(button.dataset.studentId);
+      if (!student) return;
+
+      selectedInput.value = student.id;
+      searchInput.value = student.firstNames + " " + student.lastNames;
+
+      selectedLabel.innerHTML =
+        '<p class="upload-student-confirmed">✓ Seleccionado: <strong>' +
+        App.escape(student.firstNames + " " + student.lastNames) +
+        '</strong></p>';
+
+      results.innerHTML = "";
+      updateRequirementSelect();
+    });
   }
 
   function updateRequirementSelect() {
-    var studentId = document.getElementById("upload-student").value;
-    var cycleId = App.state.settings.selectedCycleId;
+    var studentInput = document.getElementById("upload-student");
     var select = document.getElementById("upload-requirement");
-    select.innerHTML = '<option value="">Seleccione...</option>' + App.state.requirements.filter(function (x) { return x.active; }).map(function (req) {
-      var existing = App.state.studentDocuments.find(function (doc) { return doc.studentId === studentId && doc.cycleId === cycleId && doc.requirementId === req.id; });
-      return '<option value="' + req.id + '">' + App.escape(req.name) + (existing ? " · Entregado (creará v" + (existing.version + 1) + ")" : " · Pendiente") + "</option>";
-    }).join("");
-    document.getElementById("student-file-warning").innerHTML = "";
-    select.addEventListener("change", function () {
-      var existing = App.state.studentDocuments.find(function (doc) { return doc.studentId === studentId && doc.cycleId === cycleId && doc.requirementId === select.value; });
-      document.getElementById("student-file-warning").innerHTML = existing ? '<div class="alert alert-warning form-group"><span>⚠</span><div>Este requisito ya fue entregado. El archivo nuevo quedará registrado como una versión posterior.</div></div>' : "";
-    });
+    var warning = document.getElementById("student-file-warning");
+
+    if (!studentInput || !select || !warning) return;
+
+    var studentId = studentInput.value;
+    var cycleId = App.state.settings.selectedCycleId;
+
+    warning.innerHTML = "";
+    select.disabled = !studentId;
+
+    if (!studentId) {
+      select.innerHTML =
+        '<option value="">Seleccione primero un estudiante</option>';
+      return;
+    }
+
+    select.innerHTML = '<option value="">Seleccione documento...</option>' +
+      App.state.requirements
+        .filter(function (req) {
+          return req.active;
+        })
+        .map(function (req) {
+          var existing = App.state.studentDocuments.find(function (doc) {
+            return doc.studentId === studentId &&
+              doc.cycleId === cycleId &&
+              doc.requirementId === req.id;
+          });
+
+          return '<option value="' + App.escape(req.id) + '">' +
+            App.escape(req.name) +
+            (existing
+              ? ' · Entregado (creará v' + (existing.version + 1) + ')'
+              : ' · Pendiente') +
+            '</option>';
+        }).join("");
+
+    select.onchange = function () {
+      var existing = App.state.studentDocuments.find(function (doc) {
+        return doc.studentId === studentInput.value &&
+          doc.cycleId === cycleId &&
+          doc.requirementId === select.value;
+      });
+
+      warning.innerHTML = existing
+        ? '<div class="alert alert-warning form-group">' +
+          '<span>⚠</span><div>Este documento ya fue entregado. ' +
+          'Se guardará una nueva versión sin borrar la anterior.</div></div>'
+        : "";
+    };
   }
+
 
   App.actions["save-upload-document"] = function () {
     var form = document.getElementById("upload-document-form");
     if (!form.reportValidity()) return;
+
+
+
+    if (document.getElementById("upload-type").value === "student") {
+      var sectionId = document.getElementById("upload-section").value;
+      var studentId = document.getElementById("upload-student").value;
+
+      var validEnrollment = App.state.enrollments.some(function (item) {
+        return item.cycleId === App.state.settings.selectedCycleId &&
+          item.sectionId === sectionId &&
+          item.studentId === studentId &&
+          item.status !== "Retirada";
+      });
+
+      if (!sectionId || !studentId || !validEnrollment) {
+        App.toast(
+          "Seleccione un grado, una sección y un estudiante válido.",
+          "warning"
+        );
+        return;
+      }
+    }
+
+
     var data = new FormData(form);
     var type = data.get("type");
     var file = data.get("file");
@@ -2041,5 +2239,126 @@ if (!cycle || cycle.status !== "Activo") {
     }
   };
 
+
+
+  // SGAD-CONTROLES-CICLO-HISTORICO-V1
+
+  (function () {
+
+    // PANEL GENERAL
+    var dashboardAnterior = App.pages.dashboard;
+
+    App.pages.dashboard = function () {
+      var html = dashboardAnterior();
+
+      if (!App.isSelectedCycleWritable()) {
+        html = html.replace(
+          /<button[^>]*data-action="open-upload-document"[^>]*>Subir documento<\/button>/g,
+          ""
+        );
+
+        html = html.replace(
+          /<button[^>]*data-action="open-request-form"[^>]*>Crear solicitud<\/button>/g,
+          ""
+        );
+      }
+
+      return html;
+    };
+
+
+    // USUARIOS Y PERMISOS
+    var usuariosAnterior = App.pages.users;
+
+    App.pages.users = function () {
+      var html = usuariosAnterior();
+
+      if (!App.isSelectedCycleWritable()) {
+
+        html = html.replace(
+          /<button[^>]*data-action="manage-user"[^>]*>Crear usuario<\/button>/g,
+          ""
+        );
+
+        html = html.replace(
+          /<button[^>]*data-action="manage-user"[^>]*>Administrar<\/button>/g,
+          '<span class="muted">Solo consulta</span>'
+        );
+
+        html = html.replace(
+          '<div class="table-card">',
+          '<div class="alert alert-info mb-20">' +
+          '<span>i</span><div>' +
+          'Está consultando un ciclo histórico. ' +
+          'Seleccione el ciclo activo para administrar usuarios y permisos.' +
+          '</div></div><div class="table-card">'
+        );
+      }
+
+      return html;
+    };
+
+
+    // BLOQUEAR APERTURA DE FORMULARIOS
+    var administrarAnterior = App.actions["manage-user"];
+
+    App.actions["manage-user"] = function (element) {
+
+      if (!App.isSelectedCycleWritable()) {
+        App.toast(
+          "Seleccione el ciclo activo para administrar usuarios.",
+          "warning"
+        );
+        return;
+      }
+
+      return administrarAnterior(element);
+    };
+
+
+    // BLOQUEAR GUARDADO EN CICLOS HISTÓRICOS
+    var guardarAnterior = App.actions["save-user"];
+
+    App.actions["save-user"] = function (element) {
+
+      if (!App.isSelectedCycleWritable()) {
+        App.toast(
+          "No puede modificar usuarios desde un ciclo histórico.",
+          "warning"
+        );
+        return;
+      }
+
+      return guardarAnterior(element);
+    };
+
+
+    // ELIMINAR CICLO VACÍO: SOLO MOSTRAR SI NO HAY DATOS
+    var ciclosAnterior = App.pages.cycles;
+
+    App.pages.cycles = function () {
+      var html = ciclosAnterior();
+      var id = App.selectedCycle().id;
+
+      var tieneDatos =
+        App.state.enrollments.some(x => x.cycleId === id) ||
+        App.state.studentDocuments.some(x => x.cycleId === id) ||
+        App.state.repositoryDocuments.some(x => x.cycleId === id) ||
+        App.state.deliveryRequests.some(x => x.cycleId === id) ||
+        App.state.trash.some(x =>
+          x.originalDoc && x.originalDoc.cycleId === id
+        );
+
+      if (tieneDatos) {
+        html = html.replace(
+          /<button[^>]*data-action="delete-empty-cycle"[^>]*>Eliminar ciclo vacío<\/button>/g,
+          ""
+        );
+      }
+
+      return html;
+    };
+
+  })();
 
 })();
