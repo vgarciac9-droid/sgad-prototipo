@@ -180,7 +180,7 @@
         ' estudiantes asignados</small></div></li>';
     }).join("");
 
-    return '<div class="page">' +
+    return '<div class="page teacher-dashboard">' +
       '<section class="hero"><div>' +
       '<p class="eyebrow">Panel docente · ciclo ' +
       App.escape(cycle.year) + '</p>' +

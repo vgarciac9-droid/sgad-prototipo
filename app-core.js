@@ -26,8 +26,8 @@
     { id: "reviews", label: "Bandeja de revisión", icon: "✓", badge: "reviews" },
     { id: "repository", label: "Repositorio institucional", icon: "▤" },
     { section: "Gestión escolar" },
-    { id: "enrollments", label: "Matrículas y expedientes", icon: "◎", badge: "students" },
-    { id: "cycles", label: "Ciclos, grados y secciones", icon: "▱" },
+    { id: "enrollments", label: "Expedientes", icon: "◎", badge: "students" },
+    { id: "cycles", label: "Ciclo escolar", icon: "▱" },
     { id: "requests", label: "Solicitudes de entrega", icon: "◷", badge: "requests" },
     { section: "Administración" },
     { id: "users", label: "Usuarios y permisos", icon: "♟" },
@@ -617,7 +617,7 @@
     var element = event.target.closest("[data-action]");
     if (!element) return;
     var current = App.currentUser();
-    var teacherAllowed = ["logout", "navigate", "toggle-sidebar", "toggle-notifications", "close-modal", "mark-all-read", "open-notification", "preview-file", "download-file", "download-current-preview", "download-preview-direct", "teacher-view-student", "open-teacher-request", "save-teacher-submission", "view-receipt", "print-receipt", "teacher-download-version"];
+    var teacherAllowed = ["open-profile", "profile-back", "edit-my-profile", "save-my-profile", "logout", "navigate", "toggle-sidebar", "toggle-notifications", "close-modal", "mark-all-read", "open-notification", "preview-file", "download-file", "download-current-preview", "download-preview-direct", "teacher-view-student", "open-teacher-request", "save-teacher-submission", "view-receipt", "print-receipt", "teacher-download-version"];
     if (current && current.role === "docente" && teacherAllowed.indexOf(element.dataset.action) === -1) {
       event.preventDefault();
       App.toast("Esta acción requiere permisos de Dirección.", "error");

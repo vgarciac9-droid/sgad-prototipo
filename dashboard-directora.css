@@ -1,0 +1,130 @@
+/* ======================================
+   SGAD - DASHBOARD DE DIRECCIÓN
+   Colores institucionales suaves
+   ====================================== */
+
+.director-dashboard .metrics {
+  gap: 17px !important;
+  margin-top: 20px !important;
+  margin-bottom: 22px !important;
+}
+
+.director-dashboard .metrics .metric {
+  min-width: 0 !important;
+  padding: 21px 19px 0 !important;
+  border: 1px solid rgba(255,255,255,.65) !important;
+  border-radius: 19px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 22px rgba(23,73,101,.08) !important;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.director-dashboard .metrics .metric:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(23,73,101,.14) !important;
+}
+
+/* Estudiantes */
+.director-dashboard .metrics .metric:nth-child(1) {
+  background: linear-gradient(135deg,#daf3d4,#a8dda7) !important;
+}
+
+/* Docentes */
+.director-dashboard .metrics .metric:nth-child(2) {
+  background: linear-gradient(135deg,#def4fd,#b0e0f4) !important;
+}
+
+/* Revisiones */
+.director-dashboard .metrics .metric:nth-child(3) {
+  background: linear-gradient(135deg,#fff0c8,#ffdc92) !important;
+}
+
+/* Solicitudes */
+.director-dashboard .metrics .metric:nth-child(4) {
+  background: linear-gradient(135deg,#ffe2df,#f5bab7) !important;
+}
+
+.director-dashboard .metric-label,
+.director-dashboard .metric-value,
+.director-dashboard .metric-sub {
+  color: #173f59 !important;
+}
+
+.director-dashboard .metric-label {
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  line-height: 1.4 !important;
+}
+
+.director-dashboard .metric-value {
+  font-size: 42px !important;
+  line-height: 1.1 !important;
+  margin: 10px 0 !important;
+}
+
+.director-dashboard .metric-sub {
+  font-size: 12px !important;
+  min-height: 32px;
+}
+
+.director-dashboard .metric-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 45px !important;
+  height: 45px !important;
+  border-radius: 13px !important;
+  background: rgba(255,255,255,.58) !important;
+  color: #144b69 !important;
+}
+
+.director-dashboard .metric-foot {
+  margin: 17px -19px 0 !important;
+  padding: 13px 16px !important;
+  background: rgba(255,255,255,.65) !important;
+  border: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+}
+
+.director-dashboard .metric-foot span {
+  font-size: 11px !important;
+  color: #406075 !important;
+}
+
+.director-dashboard .metric-foot .link-button {
+  color: #075b85 !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+}
+
+/* Paneles inferiores */
+
+.director-dashboard .grid-2 > .card {
+  background: #fff !important;
+  border: 1px solid #d9e9f1 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 20px rgba(23,73,101,.06) !important;
+}
+
+.director-dashboard .grid-2 .card-title {
+  color: #164a70 !important;
+}
+
+.director-dashboard .grid-2 .btn-primary {
+  border-radius: 11px !important;
+}
+
+@media (max-width: 1050px) {
+  .director-dashboard .metrics {
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .director-dashboard .metrics {
+    grid-template-columns: 1fr !important;
+  }
+}
