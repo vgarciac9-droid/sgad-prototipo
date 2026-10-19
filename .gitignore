@@ -1,0 +1,11 @@
+# Respaldos temporales
+*.bak
+
+# Archivos generados
+*.zip
+
+# Dependencias y archivos locales
+node_modules/
+.env
+.env.*
+*.sgad-backup.json

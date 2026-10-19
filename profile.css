@@ -1,0 +1,286 @@
+.perfil-page {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.perfil-main {
+  background: #fff;
+  border: 1px solid #d8e7f0;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 12px 35px rgba(13, 64, 96, .06);
+}
+
+.perfil-heading {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #dfebf2;
+}
+
+.perfil-heading h2 {
+  margin: 0 0 7px;
+  color: #10456b;
+  font-size: clamp(21px, 2vw, 30px);
+}
+
+.perfil-heading p,
+.perfil-muted {
+  color: #698299;
+}
+
+.perfil-avatar {
+  flex-shrink: 0;
+  width: 84px;
+  height: 84px;
+  border-radius: 23px;
+  background: #10456b;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 27px;
+  font-weight: 800;
+}
+
+.perfil-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.perfil-tile {
+  position: relative;
+  padding: 23px;
+  border-radius: 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.perfil-tile-icon {
+  font-size: 25px;
+}
+
+.perfil-tile-label {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.perfil-tile strong {
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+.perfil-green {
+  background: #e5f5df;
+  color: #276b32;
+}
+.perfil-yellow {
+  background: #fff0c7;
+  color: #80560e;
+}
+.perfil-blue {
+  background: #dff4fc;
+  color: #116184;
+}
+.perfil-red {
+  background: #ffe7e5;
+  color: #a44343;
+}
+
+.perfil-lower {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.perfil-section-card {
+  background: #f8fbfd;
+  padding: 22px;
+  border: 1px solid #dae7ee;
+  border-radius: 16px;
+}
+
+.perfil-section-card h3 {
+  color: #10456b;
+  margin: 0 0 12px;
+}
+
+.perfil-section-item {
+  border-top: 1px solid #e0eaf0;
+  padding: 13px 0;
+  color: #10456b;
+  font-weight: 600;
+}
+
+.perfil-footer {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.user-summary[data-action="open-profile"] {
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.user-summary[data-action="open-profile"]:focus-visible {
+  outline: 3px solid #1ab6df;
+  outline-offset: 5px;
+}
+
+@media (max-width: 750px) {
+  .perfil-main { padding: 18px; }
+  .perfil-cards, .perfil-lower {
+    grid-template-columns: 1fr;
+  }
+  .perfil-heading { align-items: flex-start; }
+  .perfil-avatar { width: 65px; height: 65px; }
+}
+
+/* ==========================================
+   MI PERFIL - DISEÑO COMPACTO
+   ========================================== */
+
+.perfil-page {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+}
+
+.perfil-main {
+  padding: 22px !important;
+  border-radius: 18px !important;
+}
+
+.perfil-heading {
+  gap: 14px !important;
+  padding-bottom: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+.perfil-avatar {
+  width: 58px !important;
+  height: 58px !important;
+  border-radius: 16px !important;
+  font-size: 21px !important;
+}
+
+.perfil-heading h2 {
+  font-size: 21px !important;
+  margin-bottom: 4px !important;
+}
+
+.perfil-heading p {
+  font-size: 13px !important;
+}
+
+.perfil-cards {
+  gap: 10px !important;
+}
+
+.perfil-tile {
+  padding: 14px 16px !important;
+  border-radius: 12px !important;
+  gap: 5px !important;
+  min-height: 0 !important;
+}
+
+.perfil-tile-icon {
+  font-size: 18px !important;
+}
+
+.perfil-tile-label {
+  font-size: 12px !important;
+}
+
+.perfil-tile strong {
+  font-size: 14px !important;
+}
+
+.perfil-lower {
+  gap: 10px !important;
+  margin-top: 12px !important;
+}
+
+.perfil-section-card {
+  padding: 15px !important;
+  border-radius: 12px !important;
+}
+
+.perfil-section-card h3 {
+  font-size: 15px !important;
+  margin-bottom: 8px !important;
+}
+
+.perfil-section-card p,
+.perfil-section-item {
+  font-size: 13px !important;
+}
+
+.perfil-footer {
+  margin-top: 14px !important;
+}
+
+.perfil-footer .btn {
+  padding: 9px 15px !important;
+  font-size: 13px !important;
+}
+
+@media (max-width: 650px) {
+  .perfil-page {
+    max-width: 100% !important;
+  }
+
+  .perfil-cards,
+  .perfil-lower {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* =====================================
+   FOTOGRAFIA DE PERFIL - SGAD
+   ===================================== */
+
+.perfil-photo-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.perfil-photo-controls .btn {
+  padding: 8px 12px;
+  font-size: 12px;
+  border-radius: 9px;
+  white-space: nowrap;
+}
+
+.perfil-photo-controls [hidden] {
+  display: none !important;
+}
+
+.perfil-avatar,
+.user-summary .avatar {
+  overflow: hidden;
+}
+
+@media (max-width: 650px) {
+  .perfil-heading {
+    flex-wrap: wrap;
+  }
+
+  .perfil-photo-controls {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+}
+

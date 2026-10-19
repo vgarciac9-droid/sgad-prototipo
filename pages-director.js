@@ -33,7 +33,7 @@
     var activity = currentAudit.map(function (item) {
       return '<li class="list-item"><span class="list-icon">' + (item.action.indexOf("documento") >= 0 ? "▤" : "✓") + '</span><div class="list-main"><strong>' + App.escape(item.action) + '</strong><small>' + App.escape(item.details) + ' · ' + App.formatDate(item.date, true) + '</small></div></li>';
     }).join("");
-    return '<div class="page"><section class="hero"><div><p class="eyebrow">Panel directivo · ciclo ' + cycle.year + '</p><h1>Bienvenida, Prof. María Eugenia</h1><p>Revise matrículas, expedientes, documentos y entregas del ciclo seleccionado.</p></div><button class="btn" data-action="open-upload-document">Subir documento</button></section>' +
+    return '<div class="page director-dashboard"><section class="hero"><div><p class="eyebrow">Panel directivo · ciclo ' + cycle.year + '</p><h1>Bienvenida, Prof. María Eugenia</h1><p>Revise matrículas, expedientes, documentos y entregas del ciclo seleccionado.</p></div><button class="btn" data-action="open-upload-document">Subir documento</button></section>' +
       '<section class="metrics">' +
       metric("Estudiantes matriculados", enrollments.length, "Estudiantes activos en este ciclo", incomplete + " expedientes incompletos", "enrollments", "◎") +
       metric("Docentes asignados", teachers.length, "Responsables únicos con sección", sections.length + " secciones activas", "cycles", "♟") +
@@ -586,7 +586,7 @@
     }).join("");
     var rows = enrollmentRows(App.selectedEnrollments());
     var actions = App.isSelectedCycleWritable() ? '<button class="btn btn-primary" data-action="open-enrollment-form">Nueva matrícula</button>' : "";
-    return '<div class="page">' + pageHead("Gestión escolar", "Matrículas y expedientes", "Consulte estudiantes y documentos del ciclo " + cycle.year + ".", actions) + '<div class="toolbar"><input class="input" id="student-search" placeholder="Buscar estudiante, CUI o código..."><select class="input" id="student-section"><option value="">Todas las secciones</option>' + App.formOptions(sections, "id", "label") + '</select><select class="input" id="student-file-status"><option value="">Todos los expedientes</option><option value="complete">Completos</option><option value="incomplete">Incompletos</option></select></div><section class="grid-3 mb-0">' + (cards || App.empty("Sin secciones", "Este ciclo todavía no tiene secciones.")) + '</section><div class="table-card mt-20"><div class="table-wrap"><table><thead><tr><th>Estudiante</th><th>Código / CUI</th><th>Sección</th><th>Expediente</th><th>Acción</th></tr></thead><tbody id="student-rows">' + (rows || '<tr><td colspan="5">' + App.empty("Sin estudiantes", "No hay matrículas en el ciclo seleccionado.") + '</td></tr>') + '</tbody></table></div></div></div>';
+    return '<div class="page">' + pageHead("Gestión escolar", "Expedientes", "Consulte estudiantes y documentos del ciclo " + cycle.year + ".", actions) + '<div class="toolbar"><input class="input" id="student-search" placeholder="Buscar estudiante, CUI o código..."><select class="input" id="student-section"><option value="">Todas las secciones</option>' + App.formOptions(sections, "id", "label") + '</select><select class="input" id="student-file-status"><option value="">Todos los expedientes</option><option value="complete">Completos</option><option value="incomplete">Incompletos</option></select></div><section class="grid-3 mb-0">' + (cards || App.empty("Sin secciones", "Este ciclo todavía no tiene secciones.")) + '</section><div class="table-card mt-20"><div class="table-wrap"><table><thead><tr><th>Estudiante</th><th>Código / CUI</th><th>Sección</th><th>Expediente</th><th>Acción</th></tr></thead><tbody id="student-rows">' + (rows || '<tr><td colspan="5">' + App.empty("Sin estudiantes", "No hay matrículas en el ciclo seleccionado.") + '</td></tr>') + '</tbody></table></div></div></div>';
   };
 
   function enrollmentRows(enrollments) {
@@ -792,7 +792,7 @@ if (!cycle || cycle.status !== "Activo") {
         'Eliminar ciclo vacío</button>';
     }
 
-    return '<div class="page">' + pageHead("Estructura escolar", "Ciclos, grados y secciones", "Administre la organización y los responsables de cada ciclo.", actions) + '<article class="card mb-0"><div class="card-head"><div><h2 class="card-title">Ciclo ' + cycle.year + '</h2><p class="card-subtitle">' + App.formatDate(cycle.startDate) + ' al ' + App.formatDate(cycle.endDate) + '</p></div><div>' + App.statusBadge(cycle.status) + (cycle.status === "Activo" ? ' <button class="btn btn-warning btn-sm" data-action="close-cycle" data-id="' + cycle.id + '">Cerrar ciclo</button>' : "") + '</div></div><div class="alert ' + (cycle.status === "Activo" ? "alert-success" : "alert-info") + '"><span>i</span><div>' + (cycle.status === "Activo" ? "Este ciclo permite matrículas, documentos y cambios de estructura." : "Este ciclo es histórico y se encuentra disponible únicamente para consulta.") + '</div></div></article><section class="grid-3 mt-20">' + (cards || App.empty("Sin estructura", "Este ciclo todavía no tiene grados ni secciones.")) + '</section></div>';
+    return '<div class="page">' + pageHead("Estructura escolar", "Ciclo escolar", "Administre la organización y los responsables de cada ciclo.", actions) + '<article class="card mb-0"><div class="card-head"><div><h2 class="card-title">Ciclo ' + cycle.year + '</h2><p class="card-subtitle">' + App.formatDate(cycle.startDate) + ' al ' + App.formatDate(cycle.endDate) + '</p></div><div>' + App.statusBadge(cycle.status) + (cycle.status === "Activo" ? ' <button class="btn btn-warning btn-sm" data-action="close-cycle" data-id="' + cycle.id + '">Cerrar ciclo</button>' : "") + '</div></div><div class="alert ' + (cycle.status === "Activo" ? "alert-success" : "alert-info") + '"><span>i</span><div>' + (cycle.status === "Activo" ? "Este ciclo permite matrículas, documentos y cambios de estructura." : "Este ciclo es histórico y se encuentra disponible únicamente para consulta.") + '</div></div></article><section class="grid-3 mt-20">' + (cards || App.empty("Sin estructura", "Este ciclo todavía no tiene grados ni secciones.")) + '</section></div>';
   };
 
   App.actions["open-cycle-form"] = function () {
@@ -1302,7 +1302,7 @@ if (!cycle || cycle.status !== "Activo") {
   App.actions["print-report"] = function () { if (App.lastReport) { App.audit("Imprimió reporte", "Reportes", App.lastReport.title, "Impresión o guardado PDF"); window.print(); } };
 
   App.pages.trash = function () {
-    var rows = App.state.trash.map(function (item) { var doc = item.originalDoc || {}; return '<tr><td><div class="cell-title">' + App.escape(doc.title || doc.fileName || item.originalId) + '</div><div class="cell-sub">' + App.escape(doc.code || item.entityType) + '</div></td><td>' + App.escape(item.entityType === "repositoryDocument" ? "Repositorio" : "Expediente") + '</td><td>' + App.escape(App.userName(item.deletedBy)) + '</td><td>' + App.formatDate(item.deletedAt, true) + '</td><td><div class="table-actions"><button class="btn btn-soft btn-sm" data-action="preview-trash-file" data-id="' + item.id + '">Ver documento</button><button class="btn btn-secondary btn-sm" data-action="restore-trash" data-id="' + item.id + '">Restaurar</button><button class="btn btn-danger btn-sm" data-action="purge-trash" data-id="' + item.id + '">Eliminar</button></div></td></tr>'; }).join("");
+    var rows = App.state.trash.filter(function (item) { return item.originalDoc && item.originalDoc.cycleId === App.state.settings.selectedCycleId; }).map(function (item) { var doc = item.originalDoc || {}; return '<tr><td><div class="cell-title">' + App.escape(doc.title || doc.fileName || item.originalId) + '</div><div class="cell-sub">' + App.escape(doc.code || item.entityType) + '</div></td><td>' + App.escape(item.entityType === "repositoryDocument" ? "Repositorio" : "Expediente") + '</td><td>' + App.escape(App.userName(item.deletedBy)) + '</td><td>' + App.formatDate(item.deletedAt, true) + '</td><td><div class="table-actions"><button class="btn btn-soft btn-sm" data-action="preview-trash-file" data-id="' + item.id + '">Ver documento</button><button class="btn btn-secondary btn-sm" data-action="restore-trash" data-id="' + item.id + '">Restaurar</button><button class="btn btn-danger btn-sm" data-action="purge-trash" data-id="' + item.id + '">Eliminar</button></div></td></tr>'; }).join("");
     return '<div class="page">' + pageHead("Recuperación", "Papelera", "Consulte documentos eliminados, restáurelos o elimínelos definitivamente.") + '<div class="alert alert-warning mb-0"><span>⚠</span><div>La eliminación definitiva también borra los archivos y sus versiones almacenadas.</div></div><div class="table-card mt-20"><div class="table-wrap"><table><thead><tr><th>Registro</th><th>Origen</th><th>Eliminado por</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody>' + (rows || '<tr><td colspan="5">' + App.empty("Papelera vacía", "No hay elementos eliminados.") + '</td></tr>') + '</tbody></table></div></div></div>';
   };
 
@@ -1342,7 +1342,12 @@ if (!cycle || cycle.status !== "Activo") {
     return '<div class="page">' + pageHead("Seguridad", "Bitácora de actividad", "Consulte quién realizó cada acción importante en el sistema.") + '<div class="toolbar four"><input class="input" id="audit-search" placeholder="Buscar acción, registro o detalles..."><select class="input" id="audit-user"><option value="">Todos los usuarios</option>' + App.formOptions(App.state.users, "id", "name") + '</select><input class="input" id="audit-from" type="date"><input class="input" id="audit-to" type="date"></div><div class="table-card"><div class="table-wrap"><table><thead><tr><th>Fecha y hora</th><th>Usuario</th><th>Acción</th><th>Módulo</th><th>Registro</th><th>Detalles</th></tr></thead><tbody id="audit-rows">' + rows + '</tbody></table></div></div></div>';
   };
   function auditRows(items) { return items.map(function (item) { return '<tr><td class="nowrap">' + App.formatDate(item.date, true) + '</td><td><strong>' + App.escape(App.userName(item.userId)) + '</strong><div class="cell-sub">' + App.escape(item.role) + '</div></td><td>' + App.escape(item.action) + '</td><td>' + App.escape(item.module) + '</td><td>' + App.escape(item.record) + '</td><td>' + App.escape(item.details) + '</td></tr>'; }).join("") || '<tr><td colspan="6">' + App.empty("Sin actividad", "Todavía no hay registros en la bitácora.") + '</td></tr>'; }
-  App.pageMounted.audit = function () { ["audit-search", "audit-user", "audit-from", "audit-to"].forEach(function (id) { document.getElementById(id).addEventListener("input", function () { var search = App.normalizeSearch(document.getElementById("audit-search").value); var user = document.getElementById("audit-user").value; var from = document.getElementById("audit-from").value; var to = document.getElementById("audit-to").value; var rows = App.state.audit.filter(function (item) { var haystack = App.normalizeSearch(item.action + " " + item.module + " " + item.record + " " + item.details + " " + App.userName(item.userId)); var day = item.date.slice(0,10); return (!search || haystack.indexOf(search) >= 0) && (!user || item.userId === user) && (!from || day >= from) && (!to || day <= to); }); document.getElementById("audit-rows").innerHTML = auditRows(rows); }); }); };
+  App.pageMounted.audit = function () { ["audit-search", "audit-user", "audit-from", "audit-to"].forEach(function (id) { document.getElementById(id).addEventListener("input", function () { var search = App.normalizeSearch(document.getElementById("audit-search").value); var user = document.getElementById("audit-user").value; var from = document.getElementById("audit-from").value; var to = document.getElementById("audit-to").value; var rows = App.state.audit.filter(function (item) { var haystack = App.normalizeSearch(item.action + " " + item.module + " " + item.record + " " + item.details + " " + App.userName(item.userId)); var day = new Date(item.date).toLocaleDateString("sv-SE", {
+  timeZone: "America/Guatemala",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit"
+}); return (!search || haystack.indexOf(search) >= 0) && (!user || item.userId === user) && (!from || day >= from) && (!to || day <= to); }); document.getElementById("audit-rows").innerHTML = auditRows(rows); }); }); };
 
   
   // =====================================================
@@ -1518,7 +1523,7 @@ if (!cycle || cycle.status !== "Activo") {
       '<div class="page-head">' +
         '<div>' +
           '<p class="eyebrow">Gestión escolar</p>' +
-          '<h1>Matrículas y expedientes</h1>' +
+          '<h1>Expedientes</h1>' +
           '<p>Seleccione el grado y sección para ' +
             'consultar sus estudiantes. Ciclo ' +
             App.escape(cycle.year) + '.</p>' +
@@ -2360,5 +2365,222 @@ if (!cycle || cycle.status !== "Activo") {
     };
 
   })();
+
+
+  // SGAD-REPOSITORIO-HISTORICO-V1
+
+  (function () {
+
+    function cicloEditable() {
+      return App.isSelectedCycleWritable();
+    }
+
+    function advertir() {
+      App.toast(
+        "Este ciclo es histórico y está disponible únicamente para consulta.",
+        "warning"
+      );
+    }
+
+    // OCULTAR BOTONES EN EL REPOSITORIO HISTÓRICO
+
+    var repositorioOriginal = App.pages.repository;
+
+    App.pages.repository = function () {
+      var html = repositorioOriginal.apply(this, arguments);
+
+      if (!cicloEditable()) {
+        html = html.replace(
+          /<button\b[^>]*data-action=["'](?:manage-categories|open-upload-document)["'][^>]*>[\s\S]*?<\/button>/gi,
+          ""
+        );
+      }
+
+      return html;
+    };
+
+    // PROTEGER LAS ACCIONES DEL REPOSITORIO
+
+    [
+      "open-upload-document",
+      "save-upload-document",
+      "manage-categories",
+      "add-category",
+      "toggle-category"
+    ].forEach(function (nombre) {
+
+      var accionOriginal = App.actions[nombre];
+
+      App.actions[nombre] = function () {
+
+        if (!cicloEditable()) {
+          advertir();
+          return;
+        }
+
+        return accionOriginal.apply(this, arguments);
+      };
+
+    });
+
+  })();
+
+
+  // SGAD-PAPELERA-POR-CICLO-V1
+
+  (function () {
+
+    function cicloSeleccionado() {
+      return App.state.settings.selectedCycleId;
+    }
+
+    function elementoPermitido(element) {
+      var id = element && element.dataset
+        ? element.dataset.id
+        : null;
+
+      var item = App.state.trash.find(function (x) {
+        return x.id === id;
+      });
+
+      if (!item || !item.originalDoc ||
+          item.originalDoc.cycleId !== cicloSeleccionado()) {
+        App.toast(
+          "El documento no pertenece al ciclo seleccionado.",
+          "warning"
+        );
+        return false;
+      }
+
+      return true;
+    }
+
+    // Ocultar las acciones de modificación en históricos
+    var paginaAnterior = App.pages.trash;
+
+    App.pages.trash = function () {
+      var html = paginaAnterior.apply(this, arguments);
+
+      if (!App.isSelectedCycleWritable()) {
+        html = html.replace(
+          /<button\b[^>]*data-action=["'](?:restore-trash|purge-trash)["'][^>]*>[\s\S]*?<\/button>/gi,
+          ""
+        );
+
+        html = html.replace(
+          "Consulte documentos eliminados, restáurelos o elimínelos definitivamente.",
+          "Consulte los documentos eliminados del ciclo histórico."
+        );
+      }
+
+      return html;
+    };
+
+    // Proteger la consulta, restauración y eliminación
+    [
+      "preview-trash-file",
+      "restore-trash",
+      "purge-trash",
+      "confirm-purge-trash"
+    ].forEach(function (nombre) {
+
+      var originalAccion = App.actions[nombre];
+
+      App.actions[nombre] = function (element) {
+
+        if (!elementoPermitido(element)) {
+          return;
+        }
+
+        if (nombre !== "preview-trash-file" &&
+            !App.isSelectedCycleWritable()) {
+          App.toast(
+            "No puede modificar documentos de un ciclo histórico.",
+            "warning"
+          );
+          return;
+        }
+
+        return originalAccion.apply(this, arguments);
+      };
+
+    });
+
+  })();
+
+
+
+
+
+// =============================================
+// SGAD - MEJORAS EN FILTROS DE BITÁCORA
+// =============================================
+
+(function () {
+  "use strict";
+
+  // Guardamos la función original
+  var montajeOriginal = App.pageMounted.audit;
+
+  App.pageMounted.audit = function () {
+
+    // Conservamos los filtros existentes
+    if (typeof montajeOriginal === "function") {
+      montajeOriginal();
+    }
+
+    var desde = document.getElementById("audit-from");
+    var hasta = document.getElementById("audit-to");
+    var busqueda = document.getElementById("audit-search");
+    var usuario = document.getElementById("audit-user");
+    var tabla = document.getElementById("audit-rows");
+
+    if (!desde || !hasta || !tabla) return;
+
+    function actualizarBitacora() {
+      var inicio = desde.value;
+      var fin = hasta.value;
+
+      // Evitar un rango de fechas incorrecto
+      if (inicio && fin && inicio > fin) {
+        tabla.innerHTML =
+          '<tr><td colspan="6">' +
+          App.empty(
+            "Rango de fechas incorrecto",
+            "La fecha inicial no puede ser posterior a la fecha final."
+          ) +
+          "</td></tr>";
+        return;
+      }
+
+      // El filtrado original ya se ejecutó mediante sus eventos.
+      // Aquí mejoramos el mensaje si no se encontraron registros.
+      var tieneRegistros = tabla.querySelectorAll("tr").length > 0;
+      var esVacio =
+        !tieneRegistros ||
+        tabla.textContent.includes("Todavía no hay registros en la bitácora.");
+
+      if (esVacio && App.state.audit.length > 0) {
+        tabla.innerHTML =
+          '<tr><td colspan="6">' +
+          App.empty(
+            "Sin resultados",
+            "No se encontraron actividades con los filtros seleccionados."
+          ) +
+          "</td></tr>";
+      }
+    }
+
+    // Estos eventos se registran después de los originales
+    [desde, hasta, busqueda, usuario].forEach(function (campo) {
+      if (campo) {
+        campo.addEventListener("input", actualizarBitacora);
+      }
+    });
+
+    actualizarBitacora();
+  };
+})();
+
 
 })();

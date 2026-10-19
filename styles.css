@@ -1004,3 +1004,125 @@ tbody tr:hover { background: #fbfdfe; }
   scrollbar-width: thin;
   scrollbar-color: #aacbdc transparent;
 }
+
+
+/* ==========================================
+   SGAD - AJUSTE FINAL DE REPORTES PDF
+   ========================================== */
+
+@media print {
+
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  .app-shell,
+  .main-column,
+  .page:has(.report-preview) {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+
+  .page:has(.report-preview) > .card,
+  .page:has(.report-preview) > .page-head {
+    display: none !important;
+  }
+
+  .report-preview {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    break-after: auto !important;
+  }
+
+  .report-preview .report-heading {
+    break-after: avoid-page;
+  }
+
+  .report-preview table {
+    width: 100% !important;
+    min-width: 0 !important;
+    border-collapse: collapse;
+  }
+
+  .report-preview tr {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .report-preview .page-actions,
+  .report-preview .no-print {
+    display: none !important;
+  }
+}
+
+/* SGAD - Ajuste visual de la bitácora */
+
+@media screen and (min-width: 1100px) {
+  .page:has(input[placeholder*="Buscar acción"]) .table-wrap {
+    overflow-x: auto;
+  }
+
+  .page:has(input[placeholder*="Buscar acción"]) table {
+    width: 100%;
+    min-width: 1050px;
+    table-layout: fixed;
+  }
+
+  .page:has(input[placeholder*="Buscar acción"]) th:nth-child(1),
+  .page:has(input[placeholder*="Buscar acción"]) td:nth-child(1) {
+    width: 18%;
+  }
+
+  .page:has(input[placeholder*="Buscar acción"]) th:nth-child(2),
+  .page:has(input[placeholder*="Buscar acción"]) td:nth-child(2) {
+    width: 24%;
+  }
+
+  .page:has(input[placeholder*="Buscar acción"]) th:nth-child(3),
+  .page:has(input[placeholder*="Buscar acción"]) td:nth-child(3) {
+    width: 14%;
+  }
+
+  .page:has(input[placeholder*="Buscar acción"]) th:nth-child(4),
+  .page:has(input[placeholder*="Buscar acción"]) td:nth-child(4) {
+    width: 12%;
+  }
+
+  .page:has(input[placeholder*="Buscar acción"]) th:nth-child(5),
+  .page:has(input[placeholder*="Buscar acción"]) td:nth-child(5) {
+    width: 14%;
+  }
+
+  .page:has(input[placeholder*="Buscar acción"]) th:nth-child(6),
+  .page:has(input[placeholder*="Buscar acción"]) td:nth-child(6) {
+    width: 18%;
+  }
+}

@@ -1,0 +1,240 @@
+/* ============================================
+   SGAD - DASHBOARD DOCENTE
+   Estilo escolar, moderno e institucional
+   ============================================ */
+
+.teacher-dashboard {
+  --verde-docente: #70c96e;
+  --amarillo-docente: #f6c948;
+  --celeste-docente: #59bce9;
+  --coral-docente: #f18c88;
+}
+
+/* BIENVENIDA */
+
+.teacher-dashboard .hero {
+  background: linear-gradient(115deg, #10436a 0%, #146589 100%) !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  padding: 30px 34px !important;
+  color: white !important;
+  box-shadow: 0 12px 25px rgba(16, 67, 106, .12);
+  position: relative;
+  overflow: hidden;
+}
+
+.teacher-dashboard .hero::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border: 35px solid rgba(255,255,255,.055);
+  border-radius: 50%;
+  top: -150px;
+  right: 13%;
+  pointer-events: none;
+}
+
+.teacher-dashboard .hero h1 {
+  color: white !important;
+  font-size: clamp(28px, 3vw, 43px) !important;
+  line-height: 1.15 !important;
+  margin: 9px 0 !important;
+}
+
+.teacher-dashboard .hero p {
+  color: #edfaff !important;
+}
+
+.teacher-dashboard .hero .eyebrow {
+  color: #8deaf4 !important;
+  font-size: 11px !important;
+  letter-spacing: 1.4px !important;
+}
+
+.teacher-dashboard .hero .btn {
+  background: white !important;
+  color: #12496d !important;
+  border-color: white !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  position: relative;
+  z-index: 1;
+}
+
+.teacher-dashboard .hero .btn:hover {
+  background: #eaf8ff !important;
+}
+
+/* TARJETAS DE INDICADORES */
+
+.teacher-dashboard .metrics {
+  gap: 16px !important;
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+}
+
+.teacher-dashboard .metrics .metric {
+  min-width: 0 !important;
+  border: none !important;
+  border-radius: 19px !important;
+  overflow: hidden !important;
+  padding: 22px 20px 0 !important;
+  box-shadow: 0 9px 22px rgba(21, 66, 97, .1) !important;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.teacher-dashboard .metrics .metric:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 25px rgba(21, 66, 97, .15) !important;
+}
+
+/* Verde - Estudiantes */
+.teacher-dashboard .metrics .metric:nth-child(1) {
+  background: linear-gradient(135deg, #89d989, #58be72) !important;
+}
+
+/* Amarillo - Solicitudes */
+.teacher-dashboard .metrics .metric:nth-child(2) {
+  background: linear-gradient(135deg, #ffdb72, #f5be36) !important;
+}
+
+/* Celeste - Documentos */
+.teacher-dashboard .metrics .metric:nth-child(3) {
+  background: linear-gradient(135deg, #85d4f4, #55b6e6) !important;
+}
+
+/* Coral - Correcciones */
+.teacher-dashboard .metrics .metric:nth-child(4) {
+  background: linear-gradient(135deg, #fbb1a8, #ed858b) !important;
+}
+
+.teacher-dashboard .metric-label,
+.teacher-dashboard .metric-value,
+.teacher-dashboard .metric-sub {
+  color: #153e58 !important;
+}
+
+.teacher-dashboard .metric-label {
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+}
+
+.teacher-dashboard .metric-value {
+  font-size: 43px !important;
+  line-height: 1.1 !important;
+  margin: 10px 0 !important;
+}
+
+.teacher-dashboard .metric-sub {
+  font-size: 12px !important;
+  min-height: 34px;
+}
+
+.teacher-dashboard .metric-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 14px !important;
+  background: rgba(255,255,255,.48) !important;
+  color: #12476b !important;
+  font-size: 22px !important;
+}
+
+.teacher-dashboard .metric-foot {
+  margin: 18px -20px 0 !important;
+  padding: 13px 17px !important;
+  background: rgba(255,255,255,.75) !important;
+  border-top: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+}
+
+.teacher-dashboard .metric-foot span {
+  color: #375970 !important;
+  font-size: 11px !important;
+}
+
+.teacher-dashboard .metric-foot .link-button {
+  color: #0b567a !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  white-space: nowrap;
+}
+
+/* PANELES INFERIORES */
+
+.teacher-dashboard .grid-2 {
+  gap: 18px !important;
+  align-items: stretch !important;
+}
+
+.teacher-dashboard .grid-2 > .card {
+  background: #ffffff !important;
+  border: 1px solid #d8e9f2 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 22px rgba(21, 66, 97, .065) !important;
+  overflow: hidden;
+}
+
+.teacher-dashboard .grid-2 .card-title {
+  color: #164b70 !important;
+  font-size: 21px !important;
+}
+
+.teacher-dashboard .grid-2 .card-subtitle {
+  color: #698398 !important;
+  font-size: 13px !important;
+}
+
+.teacher-dashboard .grid-2 .list-item {
+  padding: 15px 0 !important;
+  border-bottom-color: #e4eef4 !important;
+}
+
+.teacher-dashboard .grid-2 .list-icon {
+  background: #e5f7f6 !important;
+  color: #137e8c !important;
+  border-radius: 12px !important;
+}
+
+.teacher-dashboard .grid-2 .list-main strong {
+  color: #173d58 !important;
+}
+
+.teacher-dashboard .grid-2 .list-main small {
+  color: #71899b !important;
+}
+
+.teacher-dashboard .grid-2 .btn-soft {
+  border-radius: 10px !important;
+  background: #eaf8fd !important;
+  color: #0b688a !important;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1050px) {
+  .teacher-dashboard .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .teacher-dashboard .hero {
+    padding: 23px 20px !important;
+  }
+
+  .teacher-dashboard .metrics {
+    grid-template-columns: 1fr !important;
+  }
+
+  .teacher-dashboard .grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
